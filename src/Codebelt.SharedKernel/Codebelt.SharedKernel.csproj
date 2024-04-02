@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Savvyio.Domain" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,189 @@
+name: Shared Kernel CI/CD Pipeline
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      configuration:
+        type: choice
+        description: 'The build configuration to use in the deploy stage.'
+        required: true
+        default: Release
+        options:
+          - Debug
+          - Release
+
+jobs:
+  build:
+    name: 🛠️ Build
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.minver-version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: codebeltnet/pipelines/.github/actions/gh-checkout@main
+
+      - name: Install .NET
+        uses: codebeltnet/pipelines/.github/actions/install-dotnet@main
+
+      - name: Install .NET Tool - MinVer
+        uses: codebeltnet/pipelines/.github/actions/install-dotnet-tool-minver@main
+
+      - name: Download sharedkernel.snk file
+        uses: codebeltnet/pipelines/.github/actions/gcp-download-file@main
+        with: 
+          serviceAccountKey: ${{ secrets.gcpServiceAccountKey }}
+          bucketName: ${{ secrets.gcpBucketName }}
+          objectName: 'sharedkernel.snk'
+
+      - id: minver-version
+        name: Calculate Version
+        uses: codebeltnet/pipelines/.github/actions/minver-version@main
+
+      - name: Restore Dependencies
+        uses: codebeltnet/pipelines/.github/actions/dotnet-restore@main
+
+      - name: Build for Preview
+        uses: codebeltnet/pipelines/.github/actions/dotnet-build@main
+        with:
+          configuration: Debug
+          uploadBuildArtifact: true
+
+      - name: Build for Production
+        uses: codebeltnet/pipelines/.github/actions/dotnet-build@main
+        with:
+          configuration: Release
+          uploadBuildArtifact: true
+
+  pack:
+    name: 📦 Pack
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+    needs: [build]
+    steps:
+      - name: Pack for ${{ matrix.configuration }}
+        uses: codebeltnet/pipelines/.github/actions/dotnet-pack@main
+        with:
+          configuration: ${{ matrix.configuration }}
+          uploadPackedArtifact: true
+
+  test:
+    name: 🧪 Test
+    needs: [build]
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: codebeltnet/pipelines/.github/actions/gh-checkout@main
+
+      - name: Version
+        run: echo ${{ needs.build.outputs.version }}
+
+      - name: Install .NET
+        uses: codebeltnet/pipelines/.github/actions/install-dotnet@main
+
+      - name: Install .NET Tool - Report Generator
+        uses: codebeltnet/pipelines/.github/actions/install-dotnet-tool-reportgenerator@main
+
+      - name: Test with Debug build
+        uses: codebeltnet/pipelines/.github/actions/dotnet-test@main
+        with:
+          configuration: Debug
+          buildSwitches: -p:SkipSignAssembly=true
+
+      - name: Test with Release build
+        uses: codebeltnet/pipelines/.github/actions/dotnet-test@main
+        with:
+          configuration: Release
+          buildSwitches: -p:SkipSignAssembly=true
+
+  sonarcloud:
+    name: 🔬 Code Quality Analysis
+    needs: [build,test]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: codebeltnet/pipelines/.github/actions/gh-checkout@main
+
+      - name: Install .NET
+        uses: codebeltnet/pipelines/.github/actions/install-dotnet@main
+
+      - name: Install .NET Tool - Sonar Scanner
+        uses: codebeltnet/pipelines/.github/actions/install-dotnet-tool-sonarscanner@main
+
+      - name: Restore Dependencies
+        uses: codebeltnet/pipelines/.github/actions/dotnet-restore@main
+
+      - name: Run SonarCloud Analysis
+        uses: codebeltnet/pipelines/.github/actions/sonarcloud-scan@main
+        with:
+          token: ${{ secrets.SONAR_TOKEN }}
+          organization: geekle
+          projectKey: sharedkernel
+          version: ${{ needs.build.outputs.version }}
+
+      - name: Build
+        uses: codebeltnet/pipelines/.github/actions/dotnet-build@main
+        with:
+          buildSwitches: -p:SkipSignAssembly=true
+
+      - name: Finalize SonarCloud Analysis
+        uses: codebeltnet/pipelines/.github/actions/sonarcloud-scan-finalize@main
+        with:
+          token: ${{ secrets.SONAR_TOKEN }}
+
+  codecov:
+    name: 📊 Code Coverage Analysis
+    needs: [build,test]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: codebeltnet/pipelines/.github/actions/gh-checkout@main
+
+      - name: Run CodeCov Analysis
+        uses: codebeltnet/pipelines/.github/actions/codecov-scan@main
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          repository: codebeltnet/shared-kernel
+          
+  codeql:
+    name: 🛡️ Security Analysis
+    needs: [build,test]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: codebeltnet/pipelines/.github/actions/gh-checkout@main
+
+      - name: Install .NET
+        uses: codebeltnet/pipelines/.github/actions/install-dotnet@main
+
+      - name: Restore Dependencies
+        uses: codebeltnet/pipelines/.github/actions/dotnet-restore@main
+
+      - name: Prepare CodeQL SAST Analysis
+        uses: codebeltnet/pipelines/.github/actions/codeql-scan@main
+
+      - name: Build
+        uses: codebeltnet/pipelines/.github/actions/dotnet-build@main
+        with:
+          buildSwitches: -p:SkipSignAssembly=true
+
+      - name: Finalize CodeQL SAST Analysis
+        uses: codebeltnet/pipelines/.github/actions/codeql-scan-finalize@main
+
+  deploy:
+    name: 🚀 Deploy v${{ needs.build.outputs.version }}
+    runs-on: ubuntu-22.04
+    needs: [build,pack,test,sonarcloud,codecov,codeql]
+    environment: PackageReview
+    steps:
+      - uses: codebeltnet/pipelines/.github/actions/nuget-push@main
+        with:
+          token: ${{ secrets.NUGET_TOKEN }}
+          configuration: ${{ inputs.configuration }}

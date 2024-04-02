@@ -1,0 +1,13 @@
+Version: 0.1.0
+Availability: .NET 8
+ 
+# New Features
+- ADDED AccessKey record in the Codebelt.SharedKernel.Security namespace that represents an object that can be used for API key-based authentication and similar
+- ADDED AccessKeyExtensions class in the Codebelt.SharedKernel.Security namespace that consist of extension methods for the AccessKey record: IsValid
+- ADDED AccessKeyOptions class in the Codebelt.SharedKernel.Security namespace that specifies options that is related to the AccessKey record
+- ADDED Secret record in the Codebelt.SharedKernel.Security namespace that represents an object that can be used for storing sensitive data
+- ADDED ClockSkew record in the Codebelt.SharedKernel namespace that represents an object that can be used to warrant for clock skew related scenarios such as authentication
+- ADDED ComparableValueObject class in the Codebelt.SharedKernel namespace that provides an implementation of SingleValueObject{T} tailored for handling a single value that implements the IComparable{T} interface
+- ADDED CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
+- ADDED TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
+ 

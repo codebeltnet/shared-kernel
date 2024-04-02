@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Codebelt.SharedKernel</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cuemon.Extensions.IO" Version="8.2.0" />
+    <PackageReference Include="Savvyio.Extensions.Newtonsoft.Json" Version="2.1.0" />
+    <PackageReference Include="Savvyio.Extensions.Text.Json" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Codebelt.SharedKernel\Codebelt.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>
