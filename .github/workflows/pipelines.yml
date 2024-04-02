@@ -65,6 +65,13 @@ jobs:
         configuration: [Debug, Release]
     needs: [build]
     steps:
+      - name: Install .NET Tool - MinVer
+        uses: codebeltnet/pipelines/.github/actions/install-dotnet-tool-minver@main
+
+      - id: minver-version
+        name: Calculate Version
+        uses: codebeltnet/pipelines/.github/actions/minver-version@main
+      
       - name: Pack for ${{ matrix.configuration }}
         uses: codebeltnet/pipelines/.github/actions/dotnet-pack@main
         with:
