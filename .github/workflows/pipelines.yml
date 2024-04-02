@@ -31,16 +31,16 @@ jobs:
       - name: Install .NET Tool - MinVer
         uses: codebeltnet/pipelines/.github/actions/install-dotnet-tool-minver@main
 
+      - id: minver-version
+        name: Calculate Version
+        uses: codebeltnet/pipelines/.github/actions/minver-version@main
+
       - name: Download sharedkernel.snk file
         uses: codebeltnet/pipelines/.github/actions/gcp-download-file@main
         with: 
           serviceAccountKey: ${{ secrets.GCP_TOKEN }}
           bucketName: ${{ secrets.GCP_BUCKETNAME }}
           objectName: 'sharedkernel.snk'
-
-      - id: minver-version
-        name: Calculate Version
-        uses: codebeltnet/pipelines/.github/actions/minver-version@main
 
       - name: Restore Dependencies
         uses: codebeltnet/pipelines/.github/actions/dotnet-restore@main
