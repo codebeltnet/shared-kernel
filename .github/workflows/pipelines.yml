@@ -184,9 +184,4 @@ jobs:
       - uses: codebeltnet/pipelines/.github/actions/nuget-push@main
         with:
           token: ${{ secrets.NUGET_TOKEN }}
-          configuration: 
-            if [ ${{ inputs.configuration }} == "" ]; then
-                Release
-            else
-              ${{ inputs.configuration }}
-            fi
+          configuration: ${{ inputs.configuration == '' && 'Release' || inputs.configuration }}
