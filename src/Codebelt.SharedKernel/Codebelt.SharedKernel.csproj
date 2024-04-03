@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <Description>A lightweight .NET library with essential components for implementing the shared kernel pattern within the context of Domain-Driven Design (DDD).</Description>
+    <PackageTags>ddd domain-driven-design valueobject value-object single-value-object shared-kernel kernel vo</PackageTags>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Savvyio.Domain" Version="2.1.0" />
   </ItemGroup>
