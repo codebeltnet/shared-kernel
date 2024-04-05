@@ -1,6 +1,9 @@
 ![Shared Kernel](.nuget/Codebelt.SharedKernel/icon.png)
 
 # Shared Kernel
+
+[![Shared Kernel CI/CD Pipeline](https://github.com/codebeltnet/shared-kernel/actions/workflows/pipelines.yml/badge.svg)](https://github.com/codebeltnet/shared-kernel/actions/workflows/pipelines.yml) [![codecov](https://codecov.io/gh/codebeltnet/shared-kernel/graph/badge.svg?token=xdDAkBq1s3)](https://codecov.io/gh/codebeltnet/shared-kernel) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sharedkernel&metric=alert_status)](https://sonarcloud.io/dashboard?id=sharedkernel) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sharedkernel&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sharedkernel) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sharedkernel&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=sharedkernel) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sharedkernel&metric=security_rating)](https://sonarcloud.io/dashboard?id=sharedkernel)
+
 An open-source project offering a lightweight .NET library with essential components for implementing the shared kernel pattern within the context of Domain-Driven Design (DDD). It provides generic and reusable (Single) Value Objects utilizing the [Savvyio.Domain](https://www.nuget.org/packages/Savvyio.Domain) package for fundamental classes, records and interfaces.
 
 ## Savvyio.Domain
