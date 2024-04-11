@@ -22,9 +22,10 @@ jobs:
     outputs:
       version: ${{ steps.minver-calculate.outputs.version }}
     steps:
-      - name: Checkout
-        uses: codebeltnet/git-checkout@main
+      - uses: actions/checkout@v4.1.2
         with:
+          fetch-depth: 0
+          fetch-tags: true
           ref: main
 
       - name: Install .NET
@@ -36,6 +37,8 @@ jobs:
       - id: minver-calculate
         name: Calculate Version
         uses: codebeltnet/minver-calculate@main
+        with:
+          level: trace
 
       - name: Download sharedkernel.snk file
         uses: codebeltnet/gcp-download-file@main
