@@ -8,13 +8,13 @@ using Savvyio.Extensions.Text.Json;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Codebelt.SharedKernel.Security
+namespace Codebelt.SharedKernel
 {
-    public class TokenTest : Test
+    public class CorrelationIdTest : Test
     {
         public static TheoryData<string> WhitespaceCharacters => new(Alphanumeric.WhiteSpace.ToCharArray().Where(c => c != 6158).Select(c => c.ToString()));
         
-        public TokenTest(ITestOutputHelper output) : base(output)
+        public CorrelationIdTest(ITestOutputHelper output) : base(output)
         {
         }
 
@@ -23,7 +23,7 @@ namespace Codebelt.SharedKernel.Security
         {
             var message = Assert.Throws<ArgumentNullException>(() =>
             {
-                new Secret(null);
+                new CorrelationId(null);
             }).Message;
 
             Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
@@ -34,7 +34,7 @@ namespace Codebelt.SharedKernel.Security
         {
             var message = Assert.Throws<ArgumentException>(() =>
             {
-                new Secret("");
+                new CorrelationId("");
             }).Message;
 
             Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
@@ -46,7 +46,7 @@ namespace Codebelt.SharedKernel.Security
         {
             var message = Assert.Throws<ArgumentException>(() =>
             {
-                new Secret(value);
+                new CorrelationId(value);
             }).Message;
 
             Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
@@ -58,7 +58,7 @@ namespace Codebelt.SharedKernel.Security
         {
             var message = Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                new Secret(string.Concat(Generate.RandomString(12), value, Generate.RandomString(22)));
+                new CorrelationId(string.Concat(Generate.RandomString(12), value, Generate.RandomString(22)));
             }).Message;
 
             Assert.StartsWith("White-space characters are not allowed inside value. (Parameter 'value')", message);
@@ -69,17 +69,31 @@ namespace Codebelt.SharedKernel.Security
         {
             var sut = Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                new Secret(Generate.RandomString(31));
+                new CorrelationId(Generate.RandomString(31));
             });
+
+            TestOutput.WriteLine(sut.Message);
 
             Assert.StartsWith("The minimum length of value was not meet. 32 characters are required. (Parameter 'value')", sut.Message);
             Assert.Equal("31 < 32", sut.ActualValue);
         }
 
         [Fact]
+        public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasExceeded128Characters()
+        {
+            var sut = Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                new CorrelationId(Generate.RandomString(129));
+            });
+
+            Assert.StartsWith("The maximum length of value was exceeded. 128 characters are allowed. (Parameter 'value')", sut.Message);
+            Assert.Equal("129 > 128", sut.ActualValue);
+        }
+
+        [Fact]
         public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasConsistOnlyOfSingleRepeatedCharacter()
         {
-            var sut = Assert.Throws<ArgumentOutOfRangeException>(() => new Secret(Guid.Empty));
+            var sut = Assert.Throws<ArgumentOutOfRangeException>(() => new CorrelationId(Guid.Empty));
 
             TestOutput.WriteLine(sut.Message);
 
@@ -88,21 +102,9 @@ namespace Codebelt.SharedKernel.Security
         }
 
         [Fact]
-        public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasExceeded128Characters()
-        {
-            var sut = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                new Secret(Generate.RandomString(129));
-            });
-
-            Assert.StartsWith("The maximum length of value was exceeded. 128 characters are allowed. (Parameter 'value')", sut.Message);
-            Assert.Equal("129 > 128", sut.ActualValue);
-        }
-
-        [Fact]
         public void Marshalling_ShouldRepresentCorrectly()
         {
-            var sut = new Secret("1acb4e4928a64206b22b2392ffd4e605");
+            var sut = new CorrelationId("1acb4e4928a64206b22b2392ffd4e605");
             var json = JsonMarshaller.Default.Serialize(sut).ToEncodedString();
             var newtonsoftJson = NewtonsoftJsonMarshaller.Default.Serialize(sut).ToEncodedString();
 
