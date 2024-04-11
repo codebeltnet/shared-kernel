@@ -1,3 +1,11 @@
+Version: 0.2.0
+Availability: .NET 8
+ 
+# New Features
+- ADDED Token record in the Codebelt.SharedKernel namespace that represents an object that can be used for storing sensitive data
+- ADDED TokenOptions class in the Codebelt.SharedKernel namespace that specifies options that is related to the Token record
+- ADDED CorrelationId record in the Codebelt.SharedKernel namespace that represents an object that can be used as unique identifier that help you trace requests across multiple services in a distributed system
+ 
 Version: 0.1.0
 Availability: .NET 8
  

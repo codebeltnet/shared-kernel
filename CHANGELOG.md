@@ -4,6 +4,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
+## [0.2.0] - 2024-04-11
+
+### Added
+
+#### Codebelt.SharedKernel
+
+- Token record in the Codebelt.SharedKernel namespace that represents an object that can be used for storing sensitive data
+- TokenOptions class in the Codebelt.SharedKernel namespace that specifies options that is related to the Token record
+- CorrelationId record in the Codebelt.SharedKernel namespace that represents an object that can be used as unique identifier that help you trace requests across multiple services in a distributed system
+
 ## [0.1.0] - 2024-04-03
 
 ### Added
