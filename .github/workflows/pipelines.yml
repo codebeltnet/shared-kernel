@@ -22,11 +22,11 @@ jobs:
     outputs:
       version: ${{ steps.minver-calculate.outputs.version }}
     steps:
-      - uses: actions/checkout@v4.1.2
+      - name: Checkout
+        uses: codebeltnet/git-checkout@main
         with:
-          fetch-depth: 0
-          fetch-tags: true
           ref: main
+          uploadSnapshot: true
 
       - name: Install .NET
         uses: codebeltnet/install-dotnet@main
