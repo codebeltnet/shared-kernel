@@ -179,7 +179,7 @@ jobs:
     name: 🚀 Deploy v${{ needs.build.outputs.version }}
     runs-on: ubuntu-22.04
     needs: [build,pack,test,sonarcloud,codecov,codeql]
-    environment: PackageReview
+    environment: Production
     steps:
       - uses: codebeltnet/nuget-push@main
         with:
