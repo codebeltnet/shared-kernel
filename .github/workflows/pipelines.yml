@@ -24,9 +24,6 @@ jobs:
     steps:
       - name: Checkout
         uses: codebeltnet/git-checkout@main
-        with:
-          ref: main
-          uploadSnapshot: true
 
       - name: Install .NET
         uses: codebeltnet/install-dotnet@main
@@ -37,8 +34,6 @@ jobs:
       - id: minver-calculate
         name: Calculate Version
         uses: codebeltnet/minver-calculate@main
-        with:
-          level: trace
 
       - name: Download sharedkernel.snk file
         uses: codebeltnet/gcp-download-file@main
