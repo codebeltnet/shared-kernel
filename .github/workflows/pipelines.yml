@@ -51,12 +51,12 @@ jobs:
         uses: codebeltnet/dotnet-restore@v1
 
       - name: Build for Preview
-        uses: codebeltnet/dotnet-build@v1
+        uses: codebeltnet/dotnet-build@v2
         with:
           configuration: Debug
 
       - name: Build for Production
-        uses: codebeltnet/dotnet-build@v1
+        uses: codebeltnet/dotnet-build@v2
         with:
           configuration: Release
 
@@ -130,7 +130,7 @@ jobs:
           version: ${{ needs.build.outputs.version }}
 
       - name: Build
-        uses: codebeltnet/dotnet-build@v1
+        uses: codebeltnet/dotnet-build@v2
         with:
           buildSwitches: -p:SkipSignAssembly=true
           uploadBuildArtifact: false
@@ -172,7 +172,7 @@ jobs:
         uses: codebeltnet/codeql-scan@v1
 
       - name: Build
-        uses: codebeltnet/dotnet-build@v1
+        uses: codebeltnet/dotnet-build@v2
         with:
           buildSwitches: -p:SkipSignAssembly=true
           uploadBuildArtifact: false
