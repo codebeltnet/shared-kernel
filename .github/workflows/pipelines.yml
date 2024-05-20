@@ -38,7 +38,7 @@ jobs:
 
       - id: minver-calculate
         name: Calculate Version
-        uses: codebeltnet/minver-calculate@v1
+        uses: codebeltnet/minver-calculate@v2
 
       - name: Download sharedkernel.snk file
         uses: codebeltnet/gcp-download-file@v1
