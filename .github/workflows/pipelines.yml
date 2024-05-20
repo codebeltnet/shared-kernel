@@ -48,7 +48,7 @@ jobs:
           objectName: sharedkernel.snk
 
       - name: Restore Dependencies
-        uses: codebeltnet/dotnet-restore@v1
+        uses: codebeltnet/dotnet-restore@v2
 
       - name: Build for Preview
         uses: codebeltnet/dotnet-build@v1
@@ -119,7 +119,7 @@ jobs:
         uses: codebeltnet/dotnet-tool-install-sonarscanner@v1
 
       - name: Restore Dependencies
-        uses: codebeltnet/dotnet-restore@v1
+        uses: codebeltnet/dotnet-restore@v2
 
       - name: Run SonarCloud Analysis
         uses: codebeltnet/sonarcloud-scan@v1
@@ -166,7 +166,7 @@ jobs:
         uses: codebeltnet/install-dotnet@v1
 
       - name: Restore Dependencies
-        uses: codebeltnet/dotnet-restore@v1
+        uses: codebeltnet/dotnet-restore@v2
 
       - name: Prepare CodeQL SAST Analysis
         uses: codebeltnet/codeql-scan@v1
