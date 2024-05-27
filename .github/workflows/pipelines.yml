@@ -93,13 +93,13 @@ jobs:
         uses: codebeltnet/dotnet-tool-install-reportgenerator@v1
 
       - name: Test with Debug build
-        uses: codebeltnet/dotnet-test@v1
+        uses: codebeltnet/dotnet-test@v2
         with:
           configuration: Debug
           buildSwitches: -p:SkipSignAssembly=true
 
       - name: Test with Release build
-        uses: codebeltnet/dotnet-test@v1
+        uses: codebeltnet/dotnet-test@v2
         with:
           configuration: Release
           buildSwitches: -p:SkipSignAssembly=true
