@@ -16,7 +16,7 @@
     <Copyright>Copyright © Geekle 2024. All rights reserved.</Copyright>
     <Authors>gimlichael</Authors>
     <Company>Geekle</Company>
-    <Product>Codebelt - Shared Kernel (DDD)</Product>
+    <Product>Codebelt Shared Kernel (DDD)</Product>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://www.codebelt.net/</PackageProjectUrl>
@@ -40,7 +40,7 @@
 
   <ItemGroup Condition="'$(IsTestProject)' == 'false'">
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
-    <PackageReference Include="MinVer" Version="5.0.0" PrivateAssets="all" />
+    <PackageReference Include="MinVer" Version="6.0.0" PrivateAssets="all" />
     <None Include="..\..\.nuget\$(MSBuildProjectName)\icon.png" Pack="true" Visible="false" PackagePath="\" />
     <None Include="..\..\.nuget\$(MSBuildProjectName)\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
@@ -59,10 +59,10 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(IsTestProject)' == 'true'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="xunit" Version="2.7.1" />
-    <PackageReference Include="xunit.runner.console" Version="2.7.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.8" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.console" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageReference Include="coverlet.msbuild" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -71,7 +71,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Cuemon.Extensions.Xunit.App" Version="8.3.0" />
+    <PackageReference Include="Cuemon.Extensions.Xunit.App" Version="8.3.2" />
   </ItemGroup>
 
 </Project>

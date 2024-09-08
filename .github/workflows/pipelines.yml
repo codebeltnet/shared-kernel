@@ -1,14 +1,11 @@
 name: Shared Kernel CI/CD Pipeline
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - .codecov
-      - .docfx
-      - .github
-      - .nuget
   pull_request:
     branches: [main]
+    paths-ignore:
+      - .github/**
+      - .nuget/**
+      - '**.md'
   workflow_dispatch:
     inputs:
       configuration:
@@ -24,6 +21,10 @@ jobs:
   build:
     name: 🛠️ Build
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        framework: [net8.0]
     outputs:
       version: ${{ steps.minver-calculate.outputs.version }}
     steps:
@@ -32,13 +33,15 @@ jobs:
 
       - name: Install .NET
         uses: codebeltnet/install-dotnet@v1
+        with:
+          includePreview: true
 
       - name: Install MinVer
         uses: codebeltnet/dotnet-tool-install-minver@v1
 
       - id: minver-calculate
         name: Calculate Version
-        uses: codebeltnet/minver-calculate@v1
+        uses: codebeltnet/minver-calculate@v2
 
       - name: Download sharedkernel.snk file
         uses: codebeltnet/gcp-download-file@v1
@@ -48,17 +51,13 @@ jobs:
           objectName: sharedkernel.snk
 
       - name: Restore Dependencies
-        uses: codebeltnet/dotnet-restore@v1
+        uses: codebeltnet/dotnet-restore@v2
 
-      - name: Build for Preview
-        uses: codebeltnet/dotnet-build@v1
+      - name: Build for ${{ matrix.framework }} (${{ matrix.configuration }})
+        uses: codebeltnet/dotnet-build@v2
         with:
-          configuration: Debug
-
-      - name: Build for Production
-        uses: codebeltnet/dotnet-build@v1
-        with:
-          configuration: Release
+          configuration: ${{ matrix.configuration }}
+          framework: ${{ matrix.framework }}
 
   pack:
     name: 📦 Pack
@@ -67,9 +66,14 @@ jobs:
       matrix:
         configuration: [Debug, Release]
     needs: [build]
-    steps:     
+    steps:
+      - name: Install .NET
+        uses: codebeltnet/install-dotnet@v1
+        with:
+          includePreview: true
+
       - name: Pack for ${{ matrix.configuration }}
-        uses: codebeltnet/dotnet-pack@v1
+        uses: codebeltnet/dotnet-pack@v2
         with:
           configuration: ${{ matrix.configuration }}
           uploadPackedArtifact: true
@@ -79,8 +83,10 @@ jobs:
     name: 🧪 Test
     needs: [build]
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-22.04, windows-2022]
+        configuration: [Debug, Release]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -88,20 +94,16 @@ jobs:
 
       - name: Install .NET
         uses: codebeltnet/install-dotnet@v1
+        with:
+          includePreview: true
 
       - name: Install .NET Tool - Report Generator
         uses: codebeltnet/dotnet-tool-install-reportgenerator@v1
 
-      - name: Test with Debug build
-        uses: codebeltnet/dotnet-test@v1
+      - name: Test with ${{ matrix.configuration }} build
+        uses: codebeltnet/dotnet-test@v3
         with:
-          configuration: Debug
-          buildSwitches: -p:SkipSignAssembly=true
-
-      - name: Test with Release build
-        uses: codebeltnet/dotnet-test@v1
-        with:
-          configuration: Release
+          configuration: ${{ matrix.configuration }}
           buildSwitches: -p:SkipSignAssembly=true
 
   sonarcloud:
@@ -114,12 +116,14 @@ jobs:
 
       - name: Install .NET
         uses: codebeltnet/install-dotnet@v1
+        with:
+          includePreview: true
 
       - name: Install .NET Tool - Sonar Scanner
         uses: codebeltnet/dotnet-tool-install-sonarscanner@v1
 
       - name: Restore Dependencies
-        uses: codebeltnet/dotnet-restore@v1
+        uses: codebeltnet/dotnet-restore@v2
 
       - name: Run SonarCloud Analysis
         uses: codebeltnet/sonarcloud-scan@v1
@@ -130,7 +134,7 @@ jobs:
           version: ${{ needs.build.outputs.version }}
 
       - name: Build
-        uses: codebeltnet/dotnet-build@v1
+        uses: codebeltnet/dotnet-build@v2
         with:
           buildSwitches: -p:SkipSignAssembly=true
           uploadBuildArtifact: false
@@ -166,13 +170,13 @@ jobs:
         uses: codebeltnet/install-dotnet@v1
 
       - name: Restore Dependencies
-        uses: codebeltnet/dotnet-restore@v1
+        uses: codebeltnet/dotnet-restore@v2
 
       - name: Prepare CodeQL SAST Analysis
         uses: codebeltnet/codeql-scan@v1
 
       - name: Build
-        uses: codebeltnet/dotnet-build@v1
+        uses: codebeltnet/dotnet-build@v2
         with:
           buildSwitches: -p:SkipSignAssembly=true
           uploadBuildArtifact: false
