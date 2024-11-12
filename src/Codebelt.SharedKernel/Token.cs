@@ -39,7 +39,7 @@ namespace Codebelt.SharedKernel
             Validator.ThrowIfNullOrWhitespace(value, message: "Value cannot be null, empty or consist only of white-space characters.");
             Validator.ThrowIfLowerThan(value.Length, options.MinimumLength == 0 ? int.MinValue: options.MinimumLength, nameof(value), $"The minimum length of {nameof(value)} was not meet. {options.MinimumLength} characters are required.");
             Validator.ThrowIfGreaterThan(value.Length, options.MaximumLength == 0 ? int.MaxValue: options.MaximumLength, nameof(value), $"The maximum length of {nameof(value)} was exceeded. {options.MaximumLength} characters are allowed.");
-            Validator.ThrowIf.ContainsAny(value, WhiteSpaceChars, message: $"White-space characters are not allowed inside {nameof(value)}.");
+            Validator.ThrowIfContainsAny(value, WhiteSpaceChars, message: $"White-space characters are not allowed inside {nameof(value)}.");
             Validator.ThrowWhen(condition => condition.IsTrue((out string frequency) =>
             {
                 frequency = value.Distinct().Order().FromChars();
