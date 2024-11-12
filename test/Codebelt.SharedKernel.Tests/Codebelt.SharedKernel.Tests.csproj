@@ -5,17 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cuemon.Extensions.IO" Version="8.3.2" />
-    <PackageReference Include="Savvyio.Extensions.Newtonsoft.Json" Version="3.0.0" />
-    <PackageReference Include="Savvyio.Extensions.Text.Json" Version="3.0.0" />
+    <PackageReference Include="Cuemon.Extensions.IO" />
+    <PackageReference Include="Savvyio.Extensions.Newtonsoft.Json" />
+    <PackageReference Include="Savvyio.Extensions.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Codebelt.SharedKernel\Codebelt.SharedKernel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="Cuemon.Extensions.Xunit.App" Version="8.3.2" />
   </ItemGroup>
 
 </Project>

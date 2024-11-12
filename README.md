@@ -1,6 +1,6 @@
-![Shared Kernel](.nuget/Codebelt.SharedKernel/icon.png)
+![Shared Kernel API](.nuget/Codebelt.SharedKernel/icon.png)
 
-# Shared Kernel
+# Shared Kernel API by Codebelt
 
 [![Shared Kernel CI/CD Pipeline](https://github.com/codebeltnet/shared-kernel/actions/workflows/pipelines.yml/badge.svg)](https://github.com/codebeltnet/shared-kernel/actions/workflows/pipelines.yml) [![codecov](https://codecov.io/gh/codebeltnet/shared-kernel/graph/badge.svg?token=xdDAkBq1s3)](https://codecov.io/gh/codebeltnet/shared-kernel) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sharedkernel&metric=alert_status)](https://sonarcloud.io/dashboard?id=sharedkernel) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sharedkernel&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sharedkernel) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sharedkernel&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=sharedkernel) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sharedkernel&metric=security_rating)](https://sonarcloud.io/dashboard?id=sharedkernel)
 
@@ -28,8 +28,9 @@ All current and future NuGet packages will publicly available at [NuGet](https:/
 |:--|:-:|:-:|:-:|
 | [Codebelt.SharedKernel](https://www.nuget.org/packages/Codebelt.SharedKernel/) | ![vNext](https://img.shields.io/nuget/vpre/Codebelt.SharedKernel?logo=nuget) | ![Stable](https://img.shields.io/nuget/v/Codebelt.SharedKernel?logo=nuget) | ![Downloads](https://img.shields.io/nuget/dt/Codebelt.SharedKernel?color=blueviolet&logo=nuget) |
 
-### Contributing to Codebelt.SharedKernel
-Contributions are welcome! 
+### Contributing to `Shared Kernel API by Codebelt`
+[Contributions](.github/CONTRIBUTING.md) are welcome and appreciated.
+
 Feel free to submit issues, feature requests, or pull requests to help improve this library.
 
 ### License

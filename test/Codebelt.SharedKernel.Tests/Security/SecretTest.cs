@@ -2,7 +2,7 @@
 using System.Linq;
 using Cuemon;
 using Cuemon.Extensions.IO;
-using Cuemon.Extensions.Xunit;
+using Codebelt.Extensions.Xunit;
 using Savvyio.Extensions.Newtonsoft.Json;
 using Savvyio.Extensions.Text.Json;
 using Xunit;
