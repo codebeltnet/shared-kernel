@@ -3,9 +3,9 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cuemon.Extensions.IO" Version="9.0.1" />
-    <PackageVersion Include="Codebelt.Extensions.Xunit.App" Version="9.0.1" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageVersion Include="Cuemon.Extensions.IO" Version="9.0.3" />
+    <PackageVersion Include="Codebelt.Extensions.Xunit.App" Version="9.1.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageVersion Include="MinVer" Version="6.0.0" />
     <PackageVersion Include="Savvyio.Domain" Version="4.0.1" />
     <PackageVersion Include="Savvyio.Extensions.Newtonsoft.Json" Version="4.0.1" />
@@ -14,6 +14,6 @@
     <PackageVersion Include="coverlet.msbuild" Version="6.0.4" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.console" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
   </ItemGroup>
 </Project>
