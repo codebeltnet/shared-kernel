@@ -20,7 +20,7 @@ Provides the fundamental abstractions to work with the concepts of DDD (Domain D
 - Repository Pattern
 - Unit of Work Pattern
 
-Check out the repository for [Savvy I/O](https://github.com/codebeltnet/savvyio) for the complete source code (which is also open-source project and available under MIT license).
+Check out the repository for [Savvy I/O](https://github.com/codebeltnet/savvyio) for the complete source code (which is also open-source project and available under MIT license) and opt-in for features such as CQRS and Event Sourcing. Read more about that project and its components on the [Savvy I/O](https://www.savvyio.net/) website.
 
 ### NuGet Package
 
