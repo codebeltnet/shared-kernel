@@ -57,6 +57,7 @@ jobs:
       configuration: ${{ matrix.configuration }}
       runs-on: ${{ matrix.os }}
       build-switches: -p:SkipSignAssembly=true
+      restore: true
 
   sonarcloud:
     name: call-sonarcloud
