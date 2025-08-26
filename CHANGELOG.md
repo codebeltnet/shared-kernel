@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
+## [0.4.4] - 2025-08-26
+
+This is a service update that focuses on package dependencies.
+
 ## [0.4.3] - 2025-05-29
 
 This is a service update that focuses on package dependencies.
