@@ -57,11 +57,12 @@ jobs:
       configuration: ${{ matrix.configuration }}
       runs-on: ${{ matrix.os }}
       build-switches: -p:SkipSignAssembly=true
+      restore: true
 
   sonarcloud:
     name: call-sonarcloud
     needs: [build,test]
-    uses: codebeltnet/jobs-sonarcloud/.github/workflows/default.yml@v1
+    uses: codebeltnet/jobs-sonarcloud/.github/workflows/default.yml@v2
     with:
       organization: geekle
       projectKey: sharedkernel
@@ -79,7 +80,7 @@ jobs:
   codeql:
     name: call-codeql
     needs: [build,test]
-    uses: codebeltnet/jobs-codeql/.github/workflows/default.yml@v1
+    uses: codebeltnet/jobs-codeql/.github/workflows/default.yml@v2
     permissions:
       security-events: write
 
