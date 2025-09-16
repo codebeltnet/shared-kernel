@@ -3,13 +3,13 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cuemon.Extensions.IO" Version="9.0.8" />
-    <PackageVersion Include="Codebelt.Extensions.Xunit.App" Version="10.0.5" />
+    <PackageVersion Include="Cuemon.Extensions.IO" Version="9.0.9" />
+    <PackageVersion Include="Codebelt.Extensions.Xunit.App" Version="10.0.6" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="MinVer" Version="6.0.0" />
-    <PackageVersion Include="Savvyio.Domain" Version="4.2.0" />
-    <PackageVersion Include="Savvyio.Extensions.Newtonsoft.Json" Version="4.2.0" />
-    <PackageVersion Include="Savvyio.Extensions.Text.Json" Version="4.2.0" />
+    <PackageVersion Include="Savvyio.Domain" Version="4.4.1" />
+    <PackageVersion Include="Savvyio.Extensions.Newtonsoft.Json" Version="4.4.1" />
+    <PackageVersion Include="Savvyio.Extensions.Text.Json" Version="4.4.1" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.4" />
     <PackageVersion Include="xunit" Version="2.9.3" />
