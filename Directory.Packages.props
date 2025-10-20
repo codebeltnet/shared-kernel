@@ -3,17 +3,17 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cuemon.Extensions.IO" Version="9.0.9" />
-    <PackageVersion Include="Codebelt.Extensions.Xunit.App" Version="10.0.6" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="Cuemon.Extensions.IO" Version="9.0.10" />
+    <PackageVersion Include="Codebelt.Extensions.Xunit.App" Version="10.0.7" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
     <PackageVersion Include="MinVer" Version="6.0.0" />
-    <PackageVersion Include="Savvyio.Domain" Version="4.4.1" />
-    <PackageVersion Include="Savvyio.Extensions.Newtonsoft.Json" Version="4.4.1" />
-    <PackageVersion Include="Savvyio.Extensions.Text.Json" Version="4.4.1" />
+    <PackageVersion Include="Savvyio.Domain" Version="4.4.2" />
+    <PackageVersion Include="Savvyio.Extensions.Newtonsoft.Json" Version="4.4.2" />
+    <PackageVersion Include="Savvyio.Extensions.Text.Json" Version="4.4.2" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.4" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.console" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
   </ItemGroup>
 </Project>
