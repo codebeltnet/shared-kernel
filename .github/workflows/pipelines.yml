@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         configuration: [Debug, Release]
-    uses: codebeltnet/jobs-dotnet-build/.github/workflows/default.yml@v2
+    uses: codebeltnet/jobs-dotnet-build/.github/workflows/default.yml@v3
     with:
       configuration: ${{ matrix.configuration }}
       strong-name-key-filename: sharedkernel.snk
@@ -39,7 +39,7 @@ jobs:
     strategy:
       matrix:
         configuration: [Debug, Release]
-    uses: codebeltnet/jobs-dotnet-pack/.github/workflows/default.yml@v2
+    uses: codebeltnet/jobs-dotnet-pack/.github/workflows/default.yml@v3
     with:
       configuration: ${{ matrix.configuration }}
       version: ${{ needs.build.outputs.version }}
@@ -52,17 +52,18 @@ jobs:
       matrix:
         os: [ubuntu-24.04, windows-2022]
         configuration: [Debug, Release]
-    uses: codebeltnet/jobs-dotnet-test/.github/workflows/default.yml@v2
+    uses: codebeltnet/jobs-dotnet-test/.github/workflows/default.yml@v3
     with:
       configuration: ${{ matrix.configuration }}
       runs-on: ${{ matrix.os }}
       build-switches: -p:SkipSignAssembly=true
       restore: true
+      build: true # required for xunitv3
 
   sonarcloud:
     name: call-sonarcloud
     needs: [build,test]
-    uses: codebeltnet/jobs-sonarcloud/.github/workflows/default.yml@v2
+    uses: codebeltnet/jobs-sonarcloud/.github/workflows/default.yml@v3
     with:
       organization: geekle
       projectKey: sharedkernel
@@ -80,7 +81,7 @@ jobs:
   codeql:
     name: call-codeql
     needs: [build,test]
-    uses: codebeltnet/jobs-codeql/.github/workflows/default.yml@v2
+    uses: codebeltnet/jobs-codeql/.github/workflows/default.yml@v3
     permissions:
       security-events: write
 
@@ -88,7 +89,7 @@ jobs:
     if: github.event_name != 'pull_request'
     name: call-nuget
     needs: [build, pack, test, sonarcloud, codecov, codeql]
-    uses: codebeltnet/jobs-nuget-push/.github/workflows/default.yml@v1
+    uses: codebeltnet/jobs-nuget-push/.github/workflows/default.yml@v2
     with:
       version: ${{ needs.build.outputs.version }}
       environment: Production

@@ -6,7 +6,6 @@ using Codebelt.Extensions.Xunit;
 using Savvyio.Extensions.Newtonsoft.Json;
 using Savvyio.Extensions.Text.Json;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Codebelt.SharedKernel.Security
 {
