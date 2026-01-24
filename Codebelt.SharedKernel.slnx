@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Codebelt.SharedKernel/Codebelt.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Codebelt.SharedKernel.Tests/Codebelt.SharedKernel.Tests.csproj" />
+  </Folder>
+</Solution>
