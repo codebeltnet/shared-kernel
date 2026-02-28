@@ -5,7 +5,7 @@
   <ItemGroup>
     <PackageVersion Include="Cuemon.Extensions.IO" Version="10.3.0" />
     <PackageVersion Include="Codebelt.Extensions.Xunit.App" Version="11.0.6" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
     <PackageVersion Include="MinVer" Version="7.0.0" />
     <PackageVersion Include="Savvyio.Domain" Version="5.0.3" />
     <PackageVersion Include="Savvyio.Extensions.Newtonsoft.Json" Version="5.0.3" />
