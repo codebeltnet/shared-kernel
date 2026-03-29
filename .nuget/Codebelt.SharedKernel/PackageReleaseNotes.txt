@@ -1,94 +1,100 @@
+Version: 0.5.5
+Availability: .NET 10 and .NET 9
+
+# ALM
+- CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
+
 Version: 0.5.4
 Availability: .NET 10 and .NET 9
- 
+
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.5.3
 Availability: .NET 10 and .NET 9
- 
+
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.5.2
 Availability: .NET 10 and .NET 9
- 
+
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.5.1
 Availability: .NET 10 and .NET 9
- 
+
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.5.0
 Availability: .NET 10 and .NET 9
- 
+
 # ALM
 - ADDED Support for TFM .NET 10 (LTS)
 - REMOVED Support for TFM .NET 8 (LTS)
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.4.6
 Availability: .NET 9 and .NET 8
- 
+
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.4.5
 Availability: .NET 9 and .NET 8
- 
+
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.4.4
 Availability: .NET 9 and .NET 8
- 
+
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.4.3
 Availability: .NET 9 and .NET 8
- 
+
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
- 
+
 Version: 0.4.2
 Availability: .NET 9 and .NET 8
- 
+
 # ALM
 - CHANGED Dependencies to latest and greatest with respect to TFMs
- 
+
 Version: 0.4.1
 Availability: .NET 9 and .NET 8
- 
+
 # ALM
 - CHANGED Dependencies to latest and greatest with respect to TFMs
- 
+
 Version: 0.4.0
 Availability: .NET 9 and .NET 8
- 
+
 # ALM
 - CHANGED Dependencies to latest and greatest with respect to TFMs
- 
+
 Version: 0.3.0
 Availability: .NET 8
- 
+
 # ALM
 - CHANGED Dependencies to latest and greatest with respect to TFMs
- 
+
 Version: 0.2.0
 Availability: .NET 8
- 
+
 # New Features
 - ADDED Token record in the Codebelt.SharedKernel namespace that represents an object that can be used for storing sensitive data
 - ADDED TokenOptions class in the Codebelt.SharedKernel namespace that specifies options that is related to the Token record
 - ADDED CorrelationId record in the Codebelt.SharedKernel namespace that represents an object that can be used as unique identifier that help you trace requests across multiple services in a distributed system
- 
+
 Version: 0.1.0
 Availability: .NET 8
- 
+
 # New Features
 - ADDED AccessKey record in the Codebelt.SharedKernel.Security namespace that represents an object that can be used for API key-based authentication and similar
 - ADDED AccessKeyExtensions class in the Codebelt.SharedKernel.Security namespace that consist of extension methods for the AccessKey record: IsValid
@@ -98,4 +104,3 @@ Availability: .NET 8
 - ADDED ComparableValueObject class in the Codebelt.SharedKernel namespace that provides an implementation of SingleValueObject{T} tailored for handling a single value that implements the IComparable{T} interface
 - ADDED CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - ADDED TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
- 
