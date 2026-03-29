@@ -10,8 +10,8 @@
     <PackageVersion Include="Savvyio.Domain" Version="5.0.5" />
     <PackageVersion Include="Savvyio.Extensions.Newtonsoft.Json" Version="5.0.5" />
     <PackageVersion Include="Savvyio.Extensions.Text.Json" Version="5.0.5" />
-    <PackageVersion Include="coverlet.collector" Version="8.0.0" />
-    <PackageVersion Include="coverlet.msbuild" Version="8.0.0" />
+    <PackageVersion Include="coverlet.collector" Version="8.0.1" />
+    <PackageVersion Include="coverlet.msbuild" Version="8.0.1" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.v3.runner.console" Version="3.2.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
