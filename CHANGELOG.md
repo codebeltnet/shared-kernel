@@ -103,6 +103,7 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.5.6]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.5...v0.5.6
 [0.5.5]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.4...v0.5.5
 [0.5.4]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.2...v0.5.3
