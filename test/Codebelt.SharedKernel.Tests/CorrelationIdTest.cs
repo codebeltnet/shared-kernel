@@ -101,6 +101,17 @@ namespace Codebelt.SharedKernel
         }
 
         [Fact]
+        public void ConversionOperators_ShouldRepresentCorrectly()
+        {
+            var value = Guid.Parse("1acb4e49-28a6-4206-b22b-2392ffd4e605");
+            CorrelationId fromGuid = value;
+            CorrelationId fromString = fromGuid.Value;
+
+            Assert.Equal("1acb4e4928a64206b22b2392ffd4e605", fromGuid.Value);
+            Assert.Equal(fromGuid, fromString);
+        }
+
+        [Fact]
         public void Marshalling_ShouldRepresentCorrectly()
         {
             var sut = new CorrelationId("1acb4e4928a64206b22b2392ffd4e605");

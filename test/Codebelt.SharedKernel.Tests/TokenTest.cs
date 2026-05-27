@@ -106,6 +106,16 @@ namespace Codebelt.SharedKernel
         }
 
         [Fact]
+        public void Constructor_ShouldNotThrowArgumentOutOfRangeException_WhenMaximumCharacterFrequencyIsDisabled()
+        {
+            var sut = new Token(new string('a', 40), o => o.MaximumCharacterFrequency = 0);
+
+            TestOutput.WriteLine(sut);
+
+            Assert.Equal(40, sut.Value.Length);
+        }
+
+        [Fact]
         public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasHighCharacterFrequency()
         {
             var sut = Assert.Throws<ArgumentOutOfRangeException>(() => new Token(Generate.RandomString(32, "a", "b", "c", "d")));

@@ -78,6 +78,16 @@ namespace Codebelt.SharedKernel
         }
 
         [Fact]
+        public void ConversionAndStringRepresentation_ShouldRepresentCorrectly()
+        {
+            ClockSkew sut = TimeSpan.FromSeconds(30);
+            TimeSpan actual = sut;
+
+            Assert.Equal(TimeSpan.FromSeconds(30), actual);
+            Assert.Equal("00:00:30", sut.ToString());
+        }
+
+        [Fact]
         public void Marshalling_ShouldRepresentCorrectly()
         {
             var sut = ClockSkew.FromSeconds(30);
