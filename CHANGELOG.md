@@ -4,6 +4,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
+## [0.5.7] - 2026-05-27
+
+This is a patch release that improves test coverage, infrastructure resilience, and code quality through CI/CD enhancements, package updates, and developer guidance.
+
+### Added
+
+- Optional macOS test matrix in `ci-pipeline.yml` with conditional job gating, enabling ARM64 and X64 architecture testing when explicitly triggered.
+
+### Changed
+
+- `Microsoft.NET.Test.Sdk` upgraded to 18.6.0,
+- `coverlet.collector` and `coverlet.msbuild` upgraded to 10.0.1,
+- `.github/copilot-instructions.md` extended with comprehensive code coverage prohibition guidance and refactoring best practices,
+- `ci-pipeline.yml` enhanced with test result evaluation quality gate and improved platform-specific test orchestration,
+- Test coverage expanded across `TokenTest.cs`, `TimeToLiveTest.cs`, `CorrelationIdTest.cs`, `ClockSkewTest.cs`, and `SecretTest.cs` with additional test cases.
+
 ## [0.5.6] - 2026-04-18
 
 This is a service update that focuses on package dependencies.
@@ -103,6 +119,7 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.5.7]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.6...v0.5.7
 [0.5.6]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.5...v0.5.6
 [0.5.5]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.4...v0.5.5
 [0.5.4]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.3...v0.5.4

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using Cuemon;
 using Cuemon.Extensions.IO;
 using Codebelt.Extensions.Xunit;
@@ -96,6 +97,15 @@ namespace Codebelt.SharedKernel.Security
 
             Assert.StartsWith("The maximum length of value was exceeded. 128 characters are allowed. (Parameter 'value')", sut.Message);
             Assert.Equal("129 > 128", sut.ActualValue);
+        }
+
+        [Fact]
+        public void StringAndByteRepresentation_ShouldRepresentCorrectly()
+        {
+            var sut = new Secret("1acb4e4928a64206b22b2392ffd4e605");
+
+            Assert.Equal("1acb4e4928a64206b22b2392ffd4e605", sut.ToString());
+            Assert.Equal(Encoding.UTF8.GetBytes(sut.Value), sut.ToByteArray());
         }
 
         [Fact]

@@ -102,6 +102,16 @@ namespace Codebelt.SharedKernel
         }
 
         [Fact]
+        public void ConversionAndStringRepresentation_ShouldRepresentCorrectly()
+        {
+            TimeToLive sut = TimeSpan.FromMinutes(15);
+            TimeSpan actual = sut;
+
+            Assert.Equal(TimeSpan.FromMinutes(15), actual);
+            Assert.Equal("00:15:00", sut.ToString());
+        }
+
+        [Fact]
         public void Marshalling_ShouldRepresentCorrectly()
         {
             var sut = TimeToLive.FromYears(1);
