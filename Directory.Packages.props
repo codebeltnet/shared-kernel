@@ -5,13 +5,13 @@
   <ItemGroup>
     <PackageVersion Include="Cuemon.Extensions.IO" Version="10.5.2" />
     <PackageVersion Include="Codebelt.Extensions.Xunit.App" Version="11.0.10" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.6.0" />
     <PackageVersion Include="MinVer" Version="7.0.0" />
     <PackageVersion Include="Savvyio.Domain" Version="5.0.7" />
     <PackageVersion Include="Savvyio.Extensions.Newtonsoft.Json" Version="5.0.7" />
     <PackageVersion Include="Savvyio.Extensions.Text.Json" Version="5.0.7" />
-    <PackageVersion Include="coverlet.collector" Version="10.0.0" />
-    <PackageVersion Include="coverlet.msbuild" Version="10.0.0" />
+    <PackageVersion Include="coverlet.collector" Version="10.0.1" />
+    <PackageVersion Include="coverlet.msbuild" Version="10.0.1" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.v3.runner.console" Version="3.2.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
