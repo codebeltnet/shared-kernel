@@ -374,3 +374,7 @@ FodyWeavers.xsd
 
 # Strong-Name Key
 *.snk
+
+# Bot workspace (local-only AI agent ideation, PRDs, and agentic loop state)
+.bot/*
+!.bot/README.md
