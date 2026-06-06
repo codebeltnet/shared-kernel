@@ -17,7 +17,7 @@
     <Copyright>Copyright © Geekle 2024-2026. All rights reserved.</Copyright>
     <Authors>gimlichael</Authors>
     <Company>Geekle</Company>
-    <Product>Codebelt Shared Kernel (DDD)</Product>
+    <Product>Shared Kernel API by Codebelt</Product>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://www.codebelt.net/</PackageProjectUrl>
