@@ -4,6 +4,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
+## [0.5.9] - 2026-07-02
+
+This is a minor release that adds DocFX API documentation structure and improves CI deployment safety.
+
+### Added
+
+- DocFX API documentation pages for all public APIs in Codebelt.SharedKernel and security types, including namespace overviews, type pages with usage examples, and extension member tables,
+
+### Changed
+
+- `Cuemon.Extensions.IO` upgraded to 10.5.4,
+- `Codebelt.Extensions.Xunit.App` upgraded to 11.1.1,
+- `Savvyio.Domain`, `Savvyio.Extensions.Newtonsoft.Json`, and `Savvyio.Extensions.Text.Json` upgraded to 5.0.9,
+- `Microsoft.NET.Test.Sdk` upgraded to 18.7.0 for improved testing infrastructure,
+- nginx base image to 1.31.2 in `.docfx/Dockerfile.docfx` for latest security and stability patches,
+- `docfx.json` configured to separate namespace and type overwrite files from generated content,
+- `AGENTS.md` extended with comprehensive DocFX maintenance requirements and expectations for API documentation,
+
+### Fixed
+
+- deploy job condition in `ci-pipeline.yml` to explicitly verify success of all dependent jobs and account for skipped optional matrix runs.
+
 ## [0.5.8] - 2026-06-06
 
 This is a service update that focuses on package dependencies.
@@ -123,6 +145,8 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.5.9]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.8...v0.5.9
+[0.5.8]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.7...v0.5.8
 [0.5.7]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.6...v0.5.7
 [0.5.6]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.5...v0.5.6
 [0.5.5]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.4...v0.5.5
