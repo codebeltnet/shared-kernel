@@ -69,10 +69,10 @@ namespace Codebelt.SharedKernel.Security
         }
 
         /// <summary>
-        /// Converts this instance to its equivalent <see cref="T:byte[]"/> representation.
+        /// Converts this instance to its equivalent <see cref="byte"/>[] representation.
         /// </summary>
         /// <param name="setup">The <see cref="EncodingOptions"/> which may be configured.</param>
-        /// <returns>A <see cref="T:byte[]"/> that is equivalent to this instance.</returns>
+        /// <returns>A <see cref="byte"/>[] that is equivalent to this instance.</returns>
         public byte[] ToByteArray(Action<EncodingOptions> setup = null)
         {
             return ToString().ToByteArray(setup);
