@@ -6,7 +6,17 @@ For more details, please refer to `PackageReleaseNotes.txt` on a per assembly ba
 
 ## [0.5.10] - 2026-07-26
 
-This is a service update that focuses on package dependencies.
+This is a patch release that focuses on package dependency upgrades and build system improvements.
+
+### Changed
+
+- `Cuemon.Extensions.IO` upgraded to 10.5.5,
+- `Codebelt.Extensions.Xunit.App` upgraded to 11.1.2,
+- `Microsoft.NET.Test.Sdk` upgraded to 18.8.1 for improved testing infrastructure,
+- `Savvyio.Domain`, `Savvyio.Extensions.Newtonsoft.Json`, and `Savvyio.Extensions.Text.Json` upgraded to 5.0.10,
+- Code analyzers enabled with Recommended analysis mode and style enforcement enforced in build process,
+- MinVer tag prefix configured to recognize `v`-prefixed version tags,
+- nginx base image version constraint in `.docfx/Dockerfile.docfx` relaxed to allow patch-level security updates within the 1.31 minor version.
 
 ## [0.5.9] - 2026-07-02
 
@@ -149,6 +159,7 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.5.10]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.9...v0.5.10
 [0.5.9]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.8...v0.5.9
 [0.5.8]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.7...v0.5.8
 [0.5.7]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.6...v0.5.7
