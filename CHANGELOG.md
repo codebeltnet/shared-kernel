@@ -4,9 +4,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
-## [0.5.11] - 2026-08-16
+## [0.5.11] - 2026-08-17
 
-This is a service update that focuses on package dependencies.
+This is a patch release that consolidates test infrastructure, adds comprehensive editor configuration for code style consistency, and upgrades dependencies to their latest compatible versions.
+
+### Added
+
+- Editor configuration file (`.editorconfig`) defining consistent code styling conventions across the repository, including character encoding, line endings, indentation, and diagnostics suppression for known framework compatibility patterns.
+
+### Changed
+
+- `Cuemon.Extensions.IO` upgraded to 10.7.0,
+- `Codebelt.Extensions.Xunit.App` upgraded to 11.2.1,
+- `Microsoft.NET.Test.Sdk` upgraded to 18.9.0 for improved testing infrastructure,
+- `Savvyio.Domain`, `Savvyio.Extensions.Newtonsoft.Json`, and `Savvyio.Extensions.Text.Json` upgraded to 5.0.11,
+- Docker test environments consolidated from separate `.NET 9` and `.NET 10` images into a single unified `codebeltnet/ubuntu-testrunner:8-9-10-11` image, reducing configuration duplication and simplifying test environment setup.
 
 ## [0.5.10] - 2026-07-26
 
@@ -163,6 +175,7 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.5.11]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.10...v0.5.11
 [0.5.10]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.9...v0.5.10
 [0.5.9]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.8...v0.5.9
 [0.5.8]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.7...v0.5.8
