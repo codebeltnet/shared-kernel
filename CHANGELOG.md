@@ -4,6 +4,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
+## [0.5.12] - 2026-09-14
+
+This is a patch release focused on test infrastructure modernization, build system improvements, and dependency upgrades to their latest compatible versions across all supported target frameworks.
+
+### Added
+
+- `global.json` file to configure `Microsoft.Testing.Platform` as the default test runner for the repository, ensuring consistent test execution behavior.
+
+### Changed
+
+- `Cuemon.Extensions.IO` upgraded to 10.7.1,
+- `Codebelt.Extensions.Xunit.App` upgraded to 12.0.1,
+- `Microsoft.NET.Test.Sdk` upgraded to 18.10.0 for improved testing infrastructure,
+- `MinVer` upgraded to 8.0.0,
+- `Savvyio.Domain`, `Savvyio.Extensions.Newtonsoft.Json`, and `Savvyio.Extensions.Text.Json` upgraded to 5.0.12,
+- xUnit testing framework updated to 4.0.1 (`xunit.v3`, `xunit.v3.runner.console`) and xUnit Visual Studio runner to 4.0.0 for enhanced .NET ecosystem integration,
+- `CONTRIBUTING.md` restructured with clarified build and test guidance, updated repository shape documentation, and improved integration testing instructions to match current CI practices,
+- Build infrastructure updated to use `Microsoft.Testing.Extensions.CodeCoverage` for improved code coverage reporting.
+
+### Removed
+
+- `coverlet.msbuild` and `coverlet.collector` packages replaced by `Microsoft.Testing.Extensions.CodeCoverage` for standardized code coverage collection within the Microsoft Testing Platform ecosystem.
+
 ## [0.5.11] - 2026-08-17
 
 This is a patch release that consolidates test infrastructure, adds comprehensive editor configuration for code style consistency, and upgrades dependencies to their latest compatible versions.
@@ -175,6 +198,7 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.5.12]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.11...v0.5.12
 [0.5.11]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.10...v0.5.11
 [0.5.10]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.9...v0.5.10
 [0.5.9]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.8...v0.5.9
