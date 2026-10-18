@@ -17,9 +17,9 @@ namespace Codebelt.SharedKernel
         public static readonly CoordinatedUniversalTime MaxValue = DateTime.ParseExact("9999-12-31T22:59:59.9999999Z", "O", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal); // Cannot use DateTime.MaxValue.ToUniversalTime() as it becomes 9999-12-31T23:59:59.9999999Z on Ubuntu 22.04 (but weirdly enough works on WSL with same distro).
 
         /// <summary>
-        /// Denotes the smallest possible value of <see cref="CoordinatedUniversalTime"/>.
+        /// Denotes the smallest possible value of <see cref="CoordinatedUniversalTime"/>, at midnight on January 1, 0001 UTC, regardless of the local time zone.
         /// </summary>
-        public static readonly CoordinatedUniversalTime MinValue = new(DateTime.MinValue.ToUniversalTime());
+        public static readonly CoordinatedUniversalTime MinValue = new(DateTime.SpecifyKind(DateTime.MinValue, DateTimeKind.Utc));
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="CoordinatedUniversalTime"/> to <see cref="DateTime"/>.
