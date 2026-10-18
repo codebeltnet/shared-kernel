@@ -10,6 +10,7 @@
         }
       ],
       "dest": "api",
+      "memberLayout": "separatePages",
       "filter": "filterConfig.yml",
       "properties": {
         "TargetFramework": "net10.0"
@@ -63,7 +64,8 @@
     "template": [
       "default",
       "modern",
-      "templates/shared-kernel"
+      "templates/shared-kernel",
+      "templates/ms-style"
     ],
     "overwrite": [
       {
@@ -83,6 +85,10 @@
     "keepFileLink": false,
     "cleanupCacheHistory": false,
     "disableGitFeatures": false,
+    "sitemap": {
+      "baseUrl": "https://sharedkernel.codebelt.net/",
+      "changefreq": "monthly"
+    },
     "xrefService": [
       "https://xref.docs.microsoft.com/query?uid={uid}" ]
   }
