@@ -4,6 +4,63 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
+## [0.5.13] - 2026-10-18
+
+This is a patch release focused on dependency maintenance, test diagnostics, documentation hosting, repository guidance, and a time-zone-independent UTC minimum.
+
+> [!IMPORTANT]
+> A longstanding time-zone dependency in `CoordinatedUniversalTime.MinValue` surfaced in Windows ARM64 CI after GitHub's [September 21–30, 2026 migration of `windows-11-arm` to the Visual Studio 2026 image (actions/runner-images#14602)](https://github.com/actions/runner-images/issues/14602). The image change is confirmed; a change to the runner's local time zone is a suspected trigger, not a confirmed upstream diagnosis. The fix makes the UTC minimum independent of the host's time zone.
+
+<details>
+<summary>UTC minimum: investigation evidence and reproduction</summary>
+
+The original initializer, `DateTime.MinValue.ToUniversalTime()`, has been present since the [April 2, 2024 initial commit](https://github.com/codebeltnet/shared-kernel/blob/ab0ea1baf3b2b4fc4205501a52a5e137d39668b6/src/Codebelt.SharedKernel/CoordinatedUniversalTime.cs#L22). `DateTime.MinValue.Kind` is `Unspecified`, which [`ToUniversalTime()` treats as local time](https://learn.microsoft.com/en-us/dotnet/api/system.datetime.touniversaltime?view=net-10.0#remarks). In UTC−08:00 it becomes `0001-01-01T08:00:00.0000000Z`; in UTC it stays midnight. Positive local offsets can also produce midnight because conversion below `DateTime.MinValue` is clamped, masking the dependency.
+
+| Evidence | Observation |
+| --- | --- |
+| [September 14 passing Windows ARM64 Release job](https://github.com/codebeltnet/shared-kernel/actions/runs/34897095521/job/104154359999) | Image `windows-11-arm64`, version `20260906.161.1`; tests passed. |
+| [October 18 failing Windows ARM64 Release job](https://github.com/codebeltnet/shared-kernel/actions/runs/39146717929/job/117732157882) | Image `windows-11-vs2026-arm64`, version `20261013.183.4`; `AccessKeyTest.Marshalling_ShouldRepresentCorrectly` expected midnight but received `08:00Z`. |
+| [Unmodified September 14 `build-Release-X64` artifact](https://github.com/codebeltnet/shared-kernel/actions/runs/34897095521/artifacts/10368867368), reproduced locally on October 18 | The same archived .NET 10 test DLL passed in UTC and failed in UTC−08:00 with the identical `08:00Z` mismatch, using .NET 10.0.12 on Linux x64. The new package versions are not required to reproduce the failure. |
+
+To repeat the archived-artifact comparison, use Bash on Linux or WSL with .NET 10 and an authenticated GitHub CLI. Download the artifact while it remains available under GitHub's retention policy, then run the same DLL twice without rebuilding:
+
+```bash
+baseline="$(mktemp -d)"
+gh run download 34897095521 --repo codebeltnet/shared-kernel --name build-Release-X64 --dir "$baseline"
+module="$baseline/test/Codebelt.SharedKernel.Tests/bin/Release/net10.0/Codebelt.SharedKernel.Tests.dll"
+TZ=Etc/GMT+8 dotnet "$module" --filter-method '*AccessKeyTest.Marshalling_ShouldRepresentCorrectly'
+TZ=UTC dotnet "$module" --filter-method '*AccessKeyTest.Marshalling_ShouldRepresentCorrectly'
+```
+
+`Etc/GMT+8` denotes UTC−08:00. The first invocation failed with `validFrom` at `08:00Z`; the second passed. Both used the archived assembly and its archived dependencies. These results establish the existing time-zone dependency, but do not establish which runner setting or runtime change first exposed it in CI. No matching upstream time-zone bug report was found during the October 18 investigation; #14602 documents the image migration only.
+
+The corrected initializer uses `DateTime.SpecifyKind(DateTime.MinValue, DateTimeKind.Utc)`, preserving zero ticks without local-time conversion. The new minimum-value regression test failed before the fix in UTC−08:00. After the fix, all 229 tests per target framework passed on .NET 9 and .NET 10 under UTC−08:00, UTC, and UTC+08:00 in Linux x64, and under the local Copenhagen time zone in Windows x64. A new GitHub Windows ARM64 run is still required to verify the fix on the affected hosted image.
+
+</details>
+
+### Added
+
+- `Codebelt.Coverlet.MTP` 10.1.0 and `Microsoft.Testing.Extensions.HangDump` 2.5.1 as shared test dependencies,
+- Nginx configuration that listens on port 8080, caches fingerprinted DocFX assets, and disables caching for stable page URLs.
+
+### Changed
+
+- Upgraded `Cuemon.Extensions.IO` from 10.7.1 to 10.8.1, `Codebelt.Extensions.Xunit.App` from 12.0.1 to 12.0.2, and `Savvyio.Domain`, `Savvyio.Extensions.Newtonsoft.Json`, and `Savvyio.Extensions.Text.Json` from 5.0.12 to 5.0.13,
+- Upgraded `Microsoft.NET.Test.Sdk` from 18.10.0 to 18.11.0, `xunit.v3` and `xunit.v3.runner.console` from 4.0.1 to 4.0.2, and `xunit.runner.visualstudio` from 4.0.0 to 4.0.1,
+- Consolidated unit-test, benchmark, and XML documentation guidance into `AGENTS.md`, preserving examples and explicit file scopes,
+- Updated DocFX hosting to DHI nginx and the `codebeltnet/docfx:2` image; configured separate member pages, the shared style template, and sitemap metadata,
+- Updated contributor test commands for the Microsoft.Testing.Platform runner,
+- Updated service-update automation to resolve the next patch from stable Git tags, reuse pending changelog entries, and preserve their content.
+
+### Removed
+
+- Direct test dependency on `Microsoft.Testing.Extensions.CodeCoverage`,
+- Deprecated `.github/copilot-instructions.md`; its guidance is maintained in `AGENTS.md`.
+
+### Fixed
+
+- `CoordinatedUniversalTime.MinValue` now consistently represents `0001-01-01T00:00:00.0000000Z`, preventing local time-zone offsets from changing the default `AccessKey.ValidFrom` value.
+
 ## [0.5.12] - 2026-09-14
 
 This is a patch release focused on test infrastructure modernization, build system improvements, and dependency upgrades to their latest compatible versions across all supported target frameworks.
@@ -198,6 +255,7 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.5.13]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.12...v0.5.13
 [0.5.12]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.11...v0.5.12
 [0.5.11]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.10...v0.5.11
 [0.5.10]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.9...v0.5.10

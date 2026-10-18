@@ -3,6 +3,8 @@ uid: Codebelt.SharedKernel.CoordinatedUniversalTime
 example:
 - *content
 ---
+`MinValue` is `0001-01-01T00:00:00.0000000Z` on every host. Its ticks are zero and its `DateTime.Kind` is `Utc`; the local time zone does not shift this boundary.
+
 The following example captures the current UTC moment as a `CoordinatedUniversalTime` and converts it back to a `DateTime` for downstream consumers, and parses a wire-format ISO 8601 string the same way. Use `CoordinatedUniversalTime.Now` for "now" snapshots and `FromString` when an external system hands you a UTC timestamp that still needs validation.
 
 ```csharp
