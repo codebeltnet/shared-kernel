@@ -6,7 +6,26 @@ For more details, please refer to `PackageReleaseNotes.txt` on a per assembly ba
 
 ## [0.5.13] - 2026-10-18
 
-This is a service update that focuses on package dependencies.
+This is a patch release focused on dependency maintenance, test diagnostics, documentation hosting, and repository guidance.
+
+### Added
+
+- `Codebelt.Coverlet.MTP` 10.1.0 and `Microsoft.Testing.Extensions.HangDump` 2.5.1 as shared test dependencies,
+- Nginx configuration that listens on port 8080, caches fingerprinted DocFX assets, and disables caching for stable page URLs.
+
+### Changed
+
+- Upgraded `Cuemon.Extensions.IO` from 10.7.1 to 10.8.1, `Codebelt.Extensions.Xunit.App` from 12.0.1 to 12.0.2, and `Savvyio.Domain`, `Savvyio.Extensions.Newtonsoft.Json`, and `Savvyio.Extensions.Text.Json` from 5.0.12 to 5.0.13,
+- Upgraded `Microsoft.NET.Test.Sdk` from 18.10.0 to 18.11.0, `xunit.v3` and `xunit.v3.runner.console` from 4.0.1 to 4.0.2, and `xunit.runner.visualstudio` from 4.0.0 to 4.0.1,
+- Consolidated unit-test, benchmark, and XML documentation guidance into `AGENTS.md`, preserving examples and explicit file scopes,
+- Updated DocFX hosting to DHI nginx and the `codebeltnet/docfx:2` image; configured separate member pages, the shared style template, and sitemap metadata,
+- Updated contributor test commands for the Microsoft.Testing.Platform runner,
+- Updated service-update automation to resolve the next patch from stable Git tags, reuse pending changelog entries, and preserve their content.
+
+### Removed
+
+- Direct test dependency on `Microsoft.Testing.Extensions.CodeCoverage`,
+- Deprecated `.github/copilot-instructions.md`; its guidance is maintained in `AGENTS.md`.
 
 ## [0.5.12] - 2026-09-14
 
@@ -202,6 +221,7 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.5.13]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.12...v0.5.13
 [0.5.12]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.11...v0.5.12
 [0.5.11]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.10...v0.5.11
 [0.5.10]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.9...v0.5.10
