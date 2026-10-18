@@ -6,4 +6,6 @@ When domain code needs to talk about moments in time, traced requests, or immuta
 
 If you are issuing a token and need to express how long it remains valid, reach for `TimeToLive` and pass it to your issuer. If two systems must agree on what "now" means within a bounded margin, reach for `ClockSkew`. If you need an absolute timestamp, use `CoordinatedUniversalTime`. For traced request identifiers and opaque credentials, start with `CorrelationId` and `Secret`; both extend `Token` and inherit its minimum length, maximum length, and character-distribution checks.
 
+`CoordinatedUniversalTime.MinValue` provides the fixed UTC lower boundary (`0001-01-01T00:00:00.0000000Z`) for validity ranges, independent of the host's local time zone. `AccessKeyOptions.ValidFrom` uses this boundary by default.
+
 [!INCLUDE [](../../includes/availability-modern.md)]
