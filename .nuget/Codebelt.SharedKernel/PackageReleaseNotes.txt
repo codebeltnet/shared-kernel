@@ -4,6 +4,9 @@ Availability: .NET 10 and .NET 9
 # ALM
 - CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)
 
+# Bug Fixes
+- FIXED CoordinatedUniversalTime.MinValue to consistently represent 0001-01-01T00:00:00.0000000Z regardless of the host time zone, preventing an offset in the default AccessKey.ValidFrom value. This longstanding defect surfaced after GitHub's Windows ARM64 runner image migration (https://github.com/actions/runner-images/issues/14602); the precise runner trigger remains unconfirmed. See CHANGELOG.md for CI evidence and reproduction steps
+
 Version: 0.5.12
 Availability: .NET 10 and .NET 9
 
