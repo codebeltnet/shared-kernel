@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Cuemon;
 using Cuemon.Extensions.IO;
@@ -7,121 +7,120 @@ using Savvyio.Extensions.Newtonsoft.Json;
 using Savvyio.Extensions.Text.Json;
 using Xunit;
 
-namespace Codebelt.SharedKernel
+namespace Codebelt.SharedKernel;
+
+public class CorrelationIdTest : Test
 {
-    public class CorrelationIdTest : Test
+    public static TheoryData<string> WhitespaceCharacters => new(Alphanumeric.WhiteSpace.ToCharArray().Where(c => c != 6158).Select(c => c.ToString()));
+
+    public CorrelationIdTest(ITestOutputHelper output) : base(output)
     {
-        public static TheoryData<string> WhitespaceCharacters => new(Alphanumeric.WhiteSpace.ToCharArray().Where(c => c != 6158).Select(c => c.ToString()));
-        
-        public CorrelationIdTest(ITestOutputHelper output) : base(output)
+    }
+
+    [Fact]
+    public void Constructor_ShouldThrowArgumentNullException()
+    {
+        var message = Assert.Throws<ArgumentNullException>(() =>
         {
-        }
+            new CorrelationId(null);
+        }).Message;
 
-        [Fact]
-        public void Constructor_ShouldThrowArgumentNullException()
+        Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
+    }
+
+    [Fact]
+    public void Constructor_ShouldThrowArgumentException_WhenValueIsEmpty()
+    {
+        var message = Assert.Throws<ArgumentException>(() =>
         {
-            var message = Assert.Throws<ArgumentNullException>(() =>
-            {
-                new CorrelationId(null);
-            }).Message;
+            new CorrelationId("");
+        }).Message;
 
-            Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
-        }
+        Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
+    }
 
-        [Fact]
-        public void Constructor_ShouldThrowArgumentException_WhenValueIsEmpty()
+    [Theory]
+    [MemberData(nameof(WhitespaceCharacters))]
+    public void Constructor_ShouldThrowArgumentException_WhenValueIsWhitespace(string value)
+    {
+        var message = Assert.Throws<ArgumentException>(() =>
         {
-            var message = Assert.Throws<ArgumentException>(() =>
-            {
-                new CorrelationId("");
-            }).Message;
+            new CorrelationId(value);
+        }).Message;
 
-            Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
-        }
+        Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
+    }
 
-        [Theory]
-        [MemberData(nameof(WhitespaceCharacters))]
-        public void Constructor_ShouldThrowArgumentException_WhenValueIsWhitespace(string value)
+    [Theory]
+    [MemberData(nameof(WhitespaceCharacters))]
+    public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueContainsNonAsciiValues(string value)
+    {
+        var message = Assert.Throws<ArgumentOutOfRangeException>(() =>
         {
-            var message = Assert.Throws<ArgumentException>(() =>
-            {
-                new CorrelationId(value);
-            }).Message;
+            new CorrelationId(string.Concat(Generate.RandomString(12), value, Generate.RandomString(22)));
+        }).Message;
 
-            Assert.Equal("Value cannot be null, empty or consist only of white-space characters. (Parameter 'value')", message);
-        }
+        Assert.StartsWith("White-space characters are not allowed inside value. (Parameter 'value')", message);
+    }
 
-        [Theory]
-        [MemberData(nameof(WhitespaceCharacters))]
-        public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueContainsNonAsciiValues(string value)
+    [Fact]
+    public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasLessThan32Characters()
+    {
+        var sut = Assert.Throws<ArgumentOutOfRangeException>(() =>
         {
-            var message = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                new CorrelationId(string.Concat(Generate.RandomString(12), value, Generate.RandomString(22)));
-            }).Message;
+            new CorrelationId(Generate.RandomString(31));
+        });
 
-            Assert.StartsWith("White-space characters are not allowed inside value. (Parameter 'value')", message);
-        }
+        TestOutput.WriteLine(sut.Message);
 
-        [Fact]
-        public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasLessThan32Characters()
+        Assert.StartsWith("The minimum length of value was not meet. 32 characters are required. (Parameter 'value')", sut.Message);
+        Assert.Equal("31 < 32", sut.ActualValue);
+    }
+
+    [Fact]
+    public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasExceeded128Characters()
+    {
+        var sut = Assert.Throws<ArgumentOutOfRangeException>(() =>
         {
-            var sut = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                new CorrelationId(Generate.RandomString(31));
-            });
+            new CorrelationId(Generate.RandomString(129));
+        });
 
-            TestOutput.WriteLine(sut.Message);
+        Assert.StartsWith("The maximum length of value was exceeded. 128 characters are allowed. (Parameter 'value')", sut.Message);
+        Assert.Equal("129 > 128", sut.ActualValue);
+    }
 
-            Assert.StartsWith("The minimum length of value was not meet. 32 characters are required. (Parameter 'value')", sut.Message);
-            Assert.Equal("31 < 32", sut.ActualValue);
-        }
+    [Fact]
+    public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasConsistOnlyOfSingleRepeatedCharacter()
+    {
+        var sut = Assert.Throws<ArgumentOutOfRangeException>(() => new CorrelationId(Guid.Empty));
 
-        [Fact]
-        public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasExceeded128Characters()
-        {
-            var sut = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                new CorrelationId(Generate.RandomString(129));
-            });
+        TestOutput.WriteLine(sut.Message);
 
-            Assert.StartsWith("The maximum length of value was exceeded. 128 characters are allowed. (Parameter 'value')", sut.Message);
-            Assert.Equal("129 > 128", sut.ActualValue);
-        }
+        Assert.StartsWith("Value suggest to high frequency of repeated characters. At least 1 distinct characters are required. (Parameter 'value')", sut.Message);
+        Assert.Equal("0", sut.ActualValue);
+    }
 
-        [Fact]
-        public void Constructor_ShouldThrowArgumentOutOfRangeException_WhenValueHasConsistOnlyOfSingleRepeatedCharacter()
-        {
-            var sut = Assert.Throws<ArgumentOutOfRangeException>(() => new CorrelationId(Guid.Empty));
+    [Fact]
+    public void ConversionOperators_ShouldRepresentCorrectly()
+    {
+        var value = Guid.Parse("1acb4e49-28a6-4206-b22b-2392ffd4e605");
+        CorrelationId fromGuid = value;
+        CorrelationId fromString = fromGuid.Value;
 
-            TestOutput.WriteLine(sut.Message);
+        Assert.Equal("1acb4e4928a64206b22b2392ffd4e605", fromGuid.Value);
+        Assert.Equal(fromGuid, fromString);
+    }
 
-            Assert.StartsWith("Value suggest to high frequency of repeated characters. At least 1 distinct characters are required. (Parameter 'value')", sut.Message);
-            Assert.Equal("0", sut.ActualValue);
-        }
+    [Fact]
+    public void Marshalling_ShouldRepresentCorrectly()
+    {
+        var sut = new CorrelationId("1acb4e4928a64206b22b2392ffd4e605");
+        var json = JsonMarshaller.Default.Serialize(sut).ToEncodedString();
+        var newtonsoftJson = NewtonsoftJsonMarshaller.Default.Serialize(sut).ToEncodedString();
 
-        [Fact]
-        public void ConversionOperators_ShouldRepresentCorrectly()
-        {
-            var value = Guid.Parse("1acb4e49-28a6-4206-b22b-2392ffd4e605");
-            CorrelationId fromGuid = value;
-            CorrelationId fromString = fromGuid.Value;
+        TestOutput.WriteLine(json);
 
-            Assert.Equal("1acb4e4928a64206b22b2392ffd4e605", fromGuid.Value);
-            Assert.Equal(fromGuid, fromString);
-        }
-
-        [Fact]
-        public void Marshalling_ShouldRepresentCorrectly()
-        {
-            var sut = new CorrelationId("1acb4e4928a64206b22b2392ffd4e605");
-            var json = JsonMarshaller.Default.Serialize(sut).ToEncodedString();
-            var newtonsoftJson = NewtonsoftJsonMarshaller.Default.Serialize(sut).ToEncodedString();
-
-            TestOutput.WriteLine(json);
-
-            Assert.Equal("\"1acb4e4928a64206b22b2392ffd4e605\"", json);
-            Assert.Equal(json, newtonsoftJson);
-        }
+        Assert.Equal("\"1acb4e4928a64206b22b2392ffd4e605\"", json);
+        Assert.Equal(json, newtonsoftJson);
     }
 }
