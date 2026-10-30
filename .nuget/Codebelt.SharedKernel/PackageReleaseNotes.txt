@@ -1,3 +1,9 @@
+Version: 0.6.0
+Availability: .NET 10 and .NET 11
+
+# ALM
+- CHANGED Target frameworks to .NET 10 (net10.0) and .NET 11 (net11.0), replacing .NET 9 (net9.0)
+
 Version: 0.5.13
 Availability: .NET 10 and .NET 9
 
