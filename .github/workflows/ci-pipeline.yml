@@ -23,7 +23,7 @@ permissions:
 jobs:
   init:
     name: initialize
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       run-mac-tests: ${{ steps.vars.outputs.run-mac-tests }}
       run-privileged-jobs: ${{ steps.vars.outputs.run-privileged-jobs }}
@@ -60,9 +60,10 @@ jobs:
     uses: codebeltnet/jobs-dotnet-build/.github/workflows/default.yml@v3
     with:
       configuration: ${{ matrix.configuration }}
+      include-preview: true
       strong-name-key-filename: ${{ needs.init.outputs.strong-name-key-filename }}
       build-switches: ${{ needs.init.outputs.build-switches }}
-      runs-on: ${{ matrix.arch == 'ARM64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+      runs-on: ${{ matrix.arch == 'ARM64' && 'ubuntu-26.04-arm' || 'ubuntu-26.04' }}
       upload-build-artifact-name: build-${{ matrix.configuration }}-${{ matrix.arch }}
     secrets: inherit
 
@@ -75,6 +76,7 @@ jobs:
     uses: codebeltnet/jobs-dotnet-pack/.github/workflows/default.yml@v3
     with:
       configuration: ${{ matrix.configuration }}
+      include-preview: true
       version: ${{ needs.build.outputs.version }}
       download-build-artifact-pattern: build-${{ matrix.configuration }}-X64
 
@@ -88,8 +90,9 @@ jobs:
         configuration: [Debug, Release]
     uses: codebeltnet/jobs-dotnet-test/.github/workflows/default.yml@v3
     with:
-      runs-on: ${{ matrix.arch == 'ARM64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+      runs-on: ${{ matrix.arch == 'ARM64' && 'ubuntu-26.04-arm' || 'ubuntu-26.04' }}
       configuration: ${{ matrix.configuration }}
+      include-preview: true
       build-switches: -p:SkipSignAssembly=true
       restore: true
       build: true # required for xunitv3
@@ -107,6 +110,7 @@ jobs:
     with:
       runs-on: ${{ matrix.arch == 'ARM64' && 'windows-11-arm' || 'windows-2025' }}
       configuration: ${{ matrix.configuration }}
+      include-preview: true
       build-switches: -p:SkipSignAssembly=true
       restore: true
       build: true # required for xunitv3
@@ -125,6 +129,7 @@ jobs:
     with:
       runs-on: ${{ matrix.arch == 'ARM64' && 'macos-26' || 'macos-26-intel' }}
       configuration: ${{ matrix.configuration }}
+      include-preview: true
       build-switches: -p:SkipSignAssembly=true
       restore: true
       build: true # required for xunitv3
@@ -134,7 +139,7 @@ jobs:
     if: ${{ always() }}
     name: test-qualitygate
     needs: [init, test_linux, test_windows, test_mac]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Evaluate test results
         shell: bash
@@ -193,7 +198,7 @@ jobs:
     with:
       repository: codebeltnet/shared-kernel
     secrets: inherit
-          
+
   codeql:
     if: ${{always() && needs.init.outputs.run-privileged-jobs == 'true' && needs.build.result == 'success' && needs.test_qualitygate.result == 'success'}}
     name: call-codeql

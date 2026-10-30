@@ -125,7 +125,7 @@ jobs:
           NEW="${{ steps.newver.outputs.new }}"
           for f in .nuget/*/PackageReleaseNotes.txt; do
             [ -f "$f" ] || continue
-            TFM=$(grep -m1 "^Availability:" "$f" | sed 's/Availability: //' || echo ".NET 10, .NET 9 and .NET Standard 2.0")
+            TFM=$(grep -m1 "^Availability:" "$f" | sed 's/Availability: //' || echo ".NET 10 and .NET 11")
             ENTRY="Version: ${NEW}\nAvailability: ${TFM}\n\n# ALM\n- CHANGED Dependencies have been upgraded to the latest compatible versions for all supported target frameworks (TFMs)\n\n"
             { printf "$ENTRY"; cat "$f"; } > "$f.tmp" && mv "$f.tmp" "$f"
           done
