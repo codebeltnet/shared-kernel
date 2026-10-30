@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>A lightweight .NET library with essential components for implementing the shared kernel pattern within the context of Domain-Driven Design (DDD).</Description>
