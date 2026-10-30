@@ -4,7 +4,7 @@ This document provides guidance for AI agents working in this repository.
 
 ## Project Overview
 
-Codebelt.SharedKernel is a foundational .NET library providing domain-driven design building blocks for time, correlation, tokens, and security concerns. The solution targets .NET 10.0, .NET 9.0, and .NET 8.0. It includes:
+Codebelt.SharedKernel is a foundational .NET library providing domain-driven design building blocks for time, correlation, tokens, and security concerns. The solution targets .NET 10.0 and .NET 11.0. It includes:
 
 - **Codebelt.SharedKernel** — Core types for temporal operations (ClockSkew, CoordinatedUniversalTime, TimeToLive), correlation tracking (CorrelationId), token management (Token, TokenOptions), and security (AccessKey, Secret).
 
@@ -134,7 +134,7 @@ This document provides instructions for writing unit tests for a project/solutio
 
 ## 1. Base Class
 
-**Always inherit from the `Test` base class** for all unit test classes.  
+**Always inherit from the `Test` base class** for all unit test classes.\
 This ensures consistent setup, teardown, and output handling across all tests.
 
 > Important: Do NOT add `using Xunit.Abstractions`. xUnit v3 no longer exposes that namespace; including it is incorrect and will cause compilation errors. Use the `Codebelt.Extensions.Xunit` Test base class and `using Xunit;` as shown in the examples below. If you need access to test output, rely on the Test base class (which accepts the appropriate output helper) rather than importing `Xunit.Abstractions`.
@@ -284,13 +284,13 @@ namespace YourProject
 
 **Pattern name:** Public Facade Testing (also referred to as *Public API Proxy Testing*)
 
-**Description:**  
+**Description:**\
 Internal classes and methods must be validated by exercising the public API that consumes them. Tests should assert observable behavior exposed by the public surface rather than targeting internal implementation details directly.
 
 ### Example Mapping
 
-- **Internal helper:** `DelimitedString` (internal static class)  
-- **Public API:** `TestOutputHelperExtensions.WriteLines()` (public extension method)  
+- **Internal helper:** `DelimitedString` (internal static class)\
+- **Public API:** `TestOutputHelperExtensions.WriteLines()` (public extension method)\
 - **Test strategy:** Write tests for `WriteLines()` and verify its public behavior. The internal call to `DelimitedString.Create()` is exercised implicitly.
 
 ### Benefits
