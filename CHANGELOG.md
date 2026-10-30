@@ -4,6 +4,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
+## [0.6.0] - 2026-11-10
+
+This is a patch release focused on analyzer enforcement, consistent source formatting, test environments, and documentation hosting.
+
+### Added
+
+- Added SonarAnalyzer.CSharp 10.35.0.4138 as a private build dependency for production projects.
+
+### Changed
+
+- Required file-scoped namespaces for existing and new C# files and converted the remaining block-scoped declarations,
+- Normalized tracked text to LF and UTF-8 without BOM, aligned final newlines and trailing whitespace, and preserved Markdown hard breaks,
+- Changed the package target frameworks to .NET 10 and .NET 11,
+- Split Docker test environments into .NET 10 and .NET 11 runners and updated the contributor guide,
+- Updated the S3267 rule documentation link,
+- Aligned nginx caching with the shared hosting configuration.
+
 ## [0.5.13] - 2026-10-18
 
 This is a patch release focused on dependency maintenance, test diagnostics, documentation hosting, repository guidance, and a time-zone-independent UTC minimum.
@@ -255,6 +272,7 @@ Purely an ALM release. No changes to the codebase.
 - CoordinatedUniversalTime record in the Codebelt.SharedKernel namespace that represents an object that can be used when you need a timestamp that is based on an absolute time (UTC)
 - TimeToLive record in the Codebelt.SharedKernel namespace that represents an object that can be used when issuing authentication tokens or similar (TTL)
 
+[0.6.0]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.13...v0.6.0
 [0.5.13]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.12...v0.5.13
 [0.5.12]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.11...v0.5.12
 [0.5.11]: https://github.com/codebeltnet/shared-kernel/compare/v0.5.10...v0.5.11
