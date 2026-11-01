@@ -6,20 +6,24 @@ For more details, please refer to `PackageReleaseNotes.txt` on a per assembly ba
 
 ## [0.6.0] - 2026-11-10
 
-This is a patch release focused on analyzer enforcement, consistent source formatting, test environments, and documentation hosting.
+This is a major release that drops .NET 9 and adds .NET 11 as package target frameworks, alongside analyzer enforcement, consistent source formatting, test environments, and documentation hosting.
 
 ### Added
 
+- .NET 11 as a package target framework alongside .NET 10,
 - Added SonarAnalyzer.CSharp 10.35.0.4138 as a private build dependency for production projects.
 
 ### Changed
 
 - Required file-scoped namespaces for existing and new C# files and converted the remaining block-scoped declarations,
 - Normalized tracked text to LF and UTF-8 without BOM, aligned final newlines and trailing whitespace, and preserved Markdown hard breaks,
-- Changed the package target frameworks to .NET 10 and .NET 11,
 - Split Docker test environments into .NET 10 and .NET 11 runners and updated the contributor guide,
 - Updated the S3267 rule documentation link,
 - Aligned nginx caching with the shared hosting configuration.
+
+### Removed
+
+- .NET 9 from the package target frameworks.
 
 ## [0.5.13] - 2026-10-18
 
