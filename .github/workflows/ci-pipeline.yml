@@ -185,6 +185,7 @@ jobs:
     needs: [init, build, test_qualitygate]
     uses: codebeltnet/jobs-sonarcloud/.github/workflows/default.yml@v3
     with:
+      include-preview: true
       organization: geekle
       projectKey: sharedkernel
       version: ${{ needs.build.outputs.version }}
@@ -204,6 +205,8 @@ jobs:
     name: call-codeql
     needs: [init, build, test_qualitygate]
     uses: codebeltnet/jobs-codeql/.github/workflows/default.yml@v3
+    with:
+      include-preview: true
     permissions:
       security-events: write
 
