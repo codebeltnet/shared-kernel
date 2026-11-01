@@ -1,8 +1,11 @@
 Version: 0.6.0
-Availability: .NET 10 and .NET 11
+Availability: .NET 11 and .NET 10
 
 # ALM
-- CHANGED Target frameworks to .NET 10 (net10.0) and .NET 11 (net11.0), replacing .NET 9 (net9.0)
+- CHANGED Target frameworks by adding .NET 11 (net11.0) and removing .NET 9 (net9.0), so the package now targets .NET 11 and .NET 10
+
+# Breaking Changes
+- REMOVED .NET 9 support; consumers must target .NET 10 or later
 
 Version: 0.5.13
 Availability: .NET 10 and .NET 9

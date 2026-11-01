@@ -6,7 +6,7 @@ For more details, please refer to `PackageReleaseNotes.txt` on a per assembly ba
 
 ## [0.6.0] - 2026-11-10
 
-This is a major release that drops .NET 9 and adds .NET 11 as package target frameworks, alongside analyzer enforcement, consistent source formatting, test environments, and documentation hosting.
+This is a major release that drops .NET 9 and adds .NET 11 as package target frameworks, alongside analyzer enforcement, source formatting and test environments.
 
 ### Added
 
@@ -16,10 +16,12 @@ This is a major release that drops .NET 9 and adds .NET 11 as package target fra
 ### Changed
 
 - Required file-scoped namespaces for existing and new C# files and converted the remaining block-scoped declarations,
-- Normalized tracked text to LF and UTF-8 without BOM, aligned final newlines and trailing whitespace, and preserved Markdown hard breaks,
+- Normalized tracked text to LF and UTF-8 without BOM,
 - Split Docker test environments into .NET 10 and .NET 11 runners and updated the contributor guide,
 - Updated the S3267 rule documentation link,
-- Aligned nginx caching with the shared hosting configuration.
+- Disabled range requests for fingerprinted DocFX assets so they are served in full,
+- Upgraded the test dependencies Codebelt.Coverlet.MTP from 10.1.0 to 10.1.1, Cuemon.Extensions.IO from 10.8.1 to 10.8.2, and Microsoft.Testing.Extensions.HangDump from 2.5.1 to 2.5.2,
+- Updated the service-update workflow to preserve planned minor and major versions and validate release dates.
 
 ### Removed
 
