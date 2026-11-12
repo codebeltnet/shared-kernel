@@ -4,28 +4,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
-## [0.6.0] - 2026-11-10
+## [0.6.0] - 2026-11-12
 
-This is a major release that drops .NET 9 and adds .NET 11 as package target frameworks, alongside analyzer enforcement, source formatting and test environments.
+This major release replaces .NET 9 with .NET 11 while retaining .NET 10, and updates dependencies and repository tooling.
 
 ### Added
 
 - .NET 11 as a package target framework alongside .NET 10,
-- Added SonarAnalyzer.CSharp 10.35.0.4138 as a private build dependency for production projects.
+- SonarAnalyzer.CSharp 10.36.0.15337 as a private build dependency for production projects.
 
 ### Changed
 
-- Required file-scoped namespaces for existing and new C# files and converted the remaining block-scoped declarations,
-- Normalized tracked text to LF and UTF-8 without BOM,
-- Split Docker test environments into .NET 10 and .NET 11 runners and updated the contributor guide,
-- Updated the S3267 rule documentation link,
-- Disabled range requests for fingerprinted DocFX assets so they are served in full,
-- Upgraded the test dependencies Codebelt.Coverlet.MTP from 10.1.0 to 10.1.1, Cuemon.Extensions.IO from 10.8.1 to 10.8.2, and Microsoft.Testing.Extensions.HangDump from 2.5.1 to 2.5.2,
-- Updated the service-update workflow to preserve planned minor and major versions and validate release dates.
+- Updated Codebelt.Coverlet.MTP from 10.1.0 to 11.0.0, Cuemon.Extensions.IO from 10.8.1 to 11.0.0, and Codebelt.Extensions.Xunit.App from 12.0.2 to 13.0.0,
+- Updated Savvyio.Domain, Savvyio.Extensions.Newtonsoft.Json, and Savvyio.Extensions.Text.Json from 5.0.13 to 6.0.0,
+- Updated Microsoft.NET.Test.Sdk from 18.11.0 to 18.12.0, Microsoft.Testing.Extensions.HangDump from 2.5.1 to 2.5.3, and xunit.v3 and xunit.v3.runner.console from 4.0.2 to 4.0.3,
+- Required file-scoped namespaces for existing and new C# files and normalized tracked text to LF and UTF-8 without BOM,
+- Split Docker test environments into .NET 10 and .NET 11 runners and updated CI runners and contributor guidance,
+- Updated the S3267 documentation link and pinned Scorecard workflow actions to current upstream revisions,
+- Disabled range requests for fingerprinted DocFX assets,
+- Updated service-update automation to preserve planned versions and validate release dates.
 
 ### Removed
 
-- .NET 9 from the package target frameworks.
+- .NET 9 from package target frameworks; consumers must target .NET 10 or later,
+- The repository's benchmark prompt.
 
 ## [0.5.13] - 2026-10-18
 
