@@ -2,7 +2,7 @@
 
 An open-source project (MIT license) offering a lightweight .NET library with essential components for implementing the shared kernel pattern within the context of Domain-Driven Design (DDD). It provides generic and reusable (Single) Value Objects utilizing the [Savvyio.Domain](https://www.nuget.org/packages/Savvyio.Domain) package for fundamental classes, records and interfaces.
 
-Your versatile Shared Kernel companion for modern development with `.NET 9` and `.NET 10`.
+Your versatile Shared Kernel companion for modern development with `.NET 10` and `.NET 11`.
 
 It is, by heart, free, flexible and built to extend and boost your agile codebelt.
 
