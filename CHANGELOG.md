@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 For more details, please refer to `PackageReleaseNotes.txt` on a per assembly basis in the `.nuget` folder.
 
+## [0.5.14] - 2026-11-12
+
+This is a service update that focuses on package dependencies.
+
 ## [0.5.13] - 2026-10-18
 
 This is a patch release focused on dependency maintenance, test diagnostics, documentation hosting, repository guidance, and a time-zone-independent UTC minimum.
