@@ -60,7 +60,6 @@ jobs:
     uses: codebeltnet/jobs-dotnet-build/.github/workflows/default.yml@v3
     with:
       configuration: ${{ matrix.configuration }}
-      include-preview: true
       strong-name-key-filename: ${{ needs.init.outputs.strong-name-key-filename }}
       build-switches: ${{ needs.init.outputs.build-switches }}
       runs-on: ${{ matrix.arch == 'ARM64' && 'ubuntu-26.04-arm' || 'ubuntu-26.04' }}
@@ -76,7 +75,6 @@ jobs:
     uses: codebeltnet/jobs-dotnet-pack/.github/workflows/default.yml@v3
     with:
       configuration: ${{ matrix.configuration }}
-      include-preview: true
       version: ${{ needs.build.outputs.version }}
       download-build-artifact-pattern: build-${{ matrix.configuration }}-X64
 
@@ -92,7 +90,6 @@ jobs:
     with:
       runs-on: ${{ matrix.arch == 'ARM64' && 'ubuntu-26.04-arm' || 'ubuntu-26.04' }}
       configuration: ${{ matrix.configuration }}
-      include-preview: true
       build-switches: -p:SkipSignAssembly=true
       restore: true
       build: true # required for xunitv3
@@ -110,7 +107,6 @@ jobs:
     with:
       runs-on: ${{ matrix.arch == 'ARM64' && 'windows-11-arm' || 'windows-2025' }}
       configuration: ${{ matrix.configuration }}
-      include-preview: true
       build-switches: -p:SkipSignAssembly=true
       restore: true
       build: true # required for xunitv3
@@ -129,7 +125,6 @@ jobs:
     with:
       runs-on: ${{ matrix.arch == 'ARM64' && 'macos-26' || 'macos-26-intel' }}
       configuration: ${{ matrix.configuration }}
-      include-preview: true
       build-switches: -p:SkipSignAssembly=true
       restore: true
       build: true # required for xunitv3
@@ -185,7 +180,6 @@ jobs:
     needs: [init, build, test_qualitygate]
     uses: codebeltnet/jobs-sonarcloud/.github/workflows/default.yml@v3
     with:
-      include-preview: true
       organization: geekle
       projectKey: sharedkernel
       version: ${{ needs.build.outputs.version }}
@@ -205,8 +199,6 @@ jobs:
     name: call-codeql
     needs: [init, build, test_qualitygate]
     uses: codebeltnet/jobs-codeql/.github/workflows/default.yml@v3
-    with:
-      include-preview: true
     permissions:
       security-events: write
 
